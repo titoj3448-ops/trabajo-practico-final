@@ -76,3 +76,8 @@ class Prestamo(metaclass=MiMeta):
         estado = "ACTIVO" if self.activo else "DEVUELTO"
         devuelto = self.fecha_devolucion if self.fecha_devolucion else "---"
         print(f"  [{estado}] '{self.libro.titulo}' → {self.usuario.nombre} {self.usuario.apellido} | Prestado: {self.fecha_prestamo} | Devuelto: {devuelto}")
+
+# ── LISTAS GLOBALES (almacenamiento simple) ─────────────────
+libros = []
+usuarios = []
+prestamos = []
