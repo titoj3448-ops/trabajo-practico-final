@@ -175,3 +175,43 @@ def buscar_usuario(dni):
         if u.dni == dni:
             return u
     return None
+
+# ── FUNCIONES DE PRÉSTAMOS ──────────────────────────────────
+@registrar_accion
+def registrar_prestamo():
+    isbn = input("  ISBN del libro: ")
+    dni  = input("  DNI del usuario: ")
+    libro   = buscar_libro(isbn)
+    usuario = buscar_usuario(dni)
+    if not libro:
+        print("  ❌ Libro no encontrado.")
+    elif not usuario:
+        print("  ❌ Usuario no encontrado.")
+    elif not libro.disponible:
+        print("  ❌ El libro ya está prestado.")
+    else:
+        prestamos.append(Prestamo(libro, usuario))
+        print("  ✅ Préstamo registrado.")
+
+@registrar_accion
+def registrar_devolucion():
+    isbn = input("  ISBN del libro a devolver: ")
+    for p in prestamos:
+        if p.libro.isbn == isbn and p.activo:
+            p.devolver()
+            print("  ✅ Devolución registrada.")
+            return
+    print("  ❌ No hay préstamo activo para ese libro.")
+
+def listar_prestamos_activos():
+    activos = [p for p in prestamos if p.activo]
+    if not activos:
+        print("  (No hay préstamos activos)")
+    for p in activos:
+        p.mostrar()
+
+def listar_todos_prestamos():
+    if not prestamos:
+        print("  (No hay préstamos registrados)")
+    for p in prestamos:
+        p.mostrar()
