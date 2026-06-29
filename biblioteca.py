@@ -215,3 +215,72 @@ def listar_todos_prestamos():
         print("  (No hay préstamos registrados)")
     for p in prestamos:
         p.mostrar()
+
+# ── MENÚS ────────────────────────────────────────────────────
+def menu_libros():
+    while True:
+        print("\n--- GESTIÓN DE LIBROS ---")
+        print("1. Agregar libro")
+        print("2. Modificar libro")
+        print("3. Eliminar libro")
+        print("4. Listar libros")
+        print("0. Volver")
+        op = input("Opción: ")
+        if op == "1": agregar_libro()
+        elif op == "2": modificar_libro()
+        elif op == "3": eliminar_libro()
+        elif op == "4": listar_libros()
+        elif op == "0": break
+        else: print("Opción inválida.")
+
+def menu_usuarios():
+    while True:
+        print("\n--- GESTIÓN DE USUARIOS ---")
+        print("1. Agregar usuario")
+        print("2. Modificar usuario")
+        print("3. Eliminar usuario")
+        print("4. Listar usuarios")
+        print("0. Volver")
+        op = input("Opción: ")
+        if op == "1": agregar_usuario()
+        elif op == "2": modificar_usuario()
+        elif op == "3": eliminar_usuario()
+        elif op == "4": listar_usuarios()
+        elif op == "0": break
+        else: print("Opción inválida.")
+
+def menu_prestamos():
+    while True:
+        print("\n--- GESTIÓN DE PRÉSTAMOS ---")
+        print("1. Registrar préstamo")
+        print("2. Registrar devolución")
+        print("3. Ver préstamos activos")
+        print("4. Ver todos los préstamos")
+        print("0. Volver")
+        op = input("Opción: ")
+        if op == "1": registrar_prestamo()
+        elif op == "2": registrar_devolucion()
+        elif op == "3": listar_prestamos_activos()
+        elif op == "4": listar_todos_prestamos()
+        elif op == "0": break
+        else: print("Opción inválida.")
+
+def main():
+    while True:
+        print("\n=== SISTEMA DE BIBLIOTECA DIGITAL ===")
+        print("1. Libros")
+        print("2. Usuarios")
+        print("3. Préstamos")
+        print("0. Salir")
+        op = input("Opción: ")
+        if op == "1": menu_libros()
+        elif op == "2": menu_usuarios()
+        elif op == "3": menu_prestamos()
+        elif op == "0":
+            print("Hasta luego.")
+            break
+        else:
+            print("Opción inválida.")
+
+if __name__ == "__main__":
+    main()
