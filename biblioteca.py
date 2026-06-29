@@ -131,3 +131,47 @@ def buscar_libro(isbn):
         if l.isbn == isbn:
             return l
     return None
+
+# ── FUNCIONES DE USUARIOS ───────────────────────────────────
+@registrar_accion
+def agregar_usuario():
+    nombre   = input("  Nombre: ")
+    apellido = input("  Apellido: ")
+    dni      = input("  DNI: ")
+    email    = input("  Email: ")
+    usuarios.append(Usuario(nombre, apellido, dni, email))
+    print("  ✅ Usuario agregado.")
+
+@registrar_accion
+def modificar_usuario():
+    dni = input("  DNI del usuario a modificar: ")
+    usuario = buscar_usuario(dni)
+    if usuario:
+        usuario.nombre   = input(f"  Nuevo nombre ({usuario.nombre}): ") or usuario.nombre
+        usuario.apellido = input(f"  Nuevo apellido ({usuario.apellido}): ") or usuario.apellido
+        usuario.email    = input(f"  Nuevo email ({usuario.email}): ") or usuario.email
+        print("  ✅ Usuario modificado.")
+    else:
+        print("  ❌ Usuario no encontrado.")
+
+@registrar_accion
+def eliminar_usuario():
+    dni = input("  DNI del usuario a eliminar: ")
+    usuario = buscar_usuario(dni)
+    if usuario:
+        usuarios.remove(usuario)
+        print("  ✅ Usuario eliminado.")
+    else:
+        print("  ❌ Usuario no encontrado.")
+
+def listar_usuarios():
+    if not usuarios:
+        print("  (No hay usuarios registrados)")
+    for u in usuarios:
+        u.mostrar()
+
+def buscar_usuario(dni):
+    for u in usuarios:
+        if u.dni == dni:
+            return u
+    return None
