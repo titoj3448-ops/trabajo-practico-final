@@ -81,3 +81,53 @@ class Prestamo(metaclass=MiMeta):
 libros = []
 usuarios = []
 prestamos = []
+
+
+# ── FUNCIONES DE LIBROS ─────────────────────────────────────
+@registrar_accion
+def agregar_libro():
+    titulo  = input("  Título: ")
+    autor   = input("  Autor: ")
+    isbn    = input("  ISBN: ")
+    anio    = input("  Año: ")
+    paginas = input("  Páginas: ")
+    libros.append(Libro(titulo, autor, isbn, anio, paginas))
+    print("  ✅ Libro agregado.")
+
+@registrar_accion
+def modificar_libro():
+    isbn = input("  ISBN del libro a modificar: ")
+    libro = buscar_libro(isbn)
+    if libro:
+        libro.titulo  = input(f"  Nuevo título ({libro.titulo}): ") or libro.titulo
+        libro.autor   = input(f"  Nuevo autor ({libro.autor}): ") or libro.autor
+        libro.anio    = input(f"  Nuevo año ({libro.anio}): ") or libro.anio
+        libro.paginas = input(f"  Nuevas páginas ({libro.paginas}): ") or libro.paginas
+        print("  ✅ Libro modificado.")
+    else:
+        print("  ❌ Libro no encontrado.")
+
+@registrar_accion
+def eliminar_libro():
+    isbn = input("  ISBN del libro a eliminar: ")
+    libro = buscar_libro(isbn)
+    if libro:
+        if not libro.disponible:
+            print("  ❌ No se puede eliminar un libro prestado.")
+        else:
+            libros.remove(libro)
+            print("  ✅ Libro eliminado.")
+    else:
+        print("  ❌ Libro no encontrado.")
+
+def listar_libros():
+    if not libros:
+        print("  (No hay libros registrados)")
+    for l in libros:
+        l.mostrar()
+
+def buscar_libro(isbn):
+    for l in libros:
+        if l.isbn == isbn:
+            return l
+    return None
